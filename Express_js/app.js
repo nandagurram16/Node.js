@@ -1,20 +1,53 @@
-
-const express = require ('express')
+const express = require('express')
 
 const app = express()
 
-const port = 5000
+// middeleware
+const firsthome = ((req,res,next) =>{
+    if(10 < 20){
+        next()
+    }
+})
 
-// if we want to get data from this server(app) we need to use "routr",to create router we use methods
+const firstabout = ((req,res,next) =>{
+    if ((1+2) ==3){
+        next()
+    }
+})
 
-app.get('/apple',(req,res) =>{
+const firstpage = ((req,res,next) =>{
+    if(2 < 4){
+        next()
+    }
+})
+
+const firstobj = ((req,res,next) =>{
+    if(4 == 4){
+        next()
+    }
+})
+app.get('/home', firsthome,(req,res) =>{
+    res.send('iam home page')
+})
+
+app.get('/about',firstabout,(req,res) =>{
+    res.send('iam about page')
+})
+
+app.get('/page/:id', firstpage,(req,res) =>{
+    res.send('iam page 120')
+})
+
+app.get('/objdata',firstobj,(req,res) =>{
     res.send({
         name:'nanda',
+        place:'kadiri',
         age:23,
-        place:'kadiri'
+        address:{pin:20,near:'police station'}
+        
     })
 })
 
-app.listen(port, () =>{
-    console.log('server running sucessfully')
+app.listen(8080,() =>{
+    console.log('sever was started')
 })
